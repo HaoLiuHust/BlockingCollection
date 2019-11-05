@@ -467,13 +467,13 @@ namespace code_machina {
             container_type container_;
 
             bool try_take_i(value_type& item, std::false_type) {
-                item = container_.back();
+                item = std::move(container_.back());
                 container_.pop_back();
                 return true;
             }
 
             bool try_take_i(value_type& item, std::true_type) {
-                item = container_.front();
+                item = std::move(container_.front());
                 container_.pop_front();
                 return true;
             }
@@ -1491,7 +1491,7 @@ namespace code_machina {
         bool try_take(value_type& item) {
             if (container_.empty())
                 return false;
-            item = container_.front();
+            item = std::move(container_.front());
             container_.pop_front();
             return true;
         }
